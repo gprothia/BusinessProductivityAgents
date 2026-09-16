@@ -384,36 +384,5 @@ SampleData/
 ```
 
 ---
-
-## 🔒 Identity, Governance & MCP Egress Security
-
-In enterprise environments, AI agents interacting with ERPs (SAP, NetSuite, Oracle) and Cloud Data Stores operate under cryptographic workload identities:
-
-### 1. Agent SPIFFE Workload Identity
-The agent runs with a secure SPIFFE identity managed by Google Cloud Discovery Engine:
-```
-//agents.global.org-950359451400.system.id.goog/resources/discoveryengine/projects/851970768145/locations/global/engines/gemini-enterprise-17617673_1761767394641/assistants/default_assistant/agents/user/12929245980641936153
-```
-
-### 2. MCP Egress Access Control (`grant_agent_mcp_egress.sh`)
-When the agent needs to invoke external Model Context Protocol (MCP) servers or ERP endpoints registered in Google Cloud's **Agent Registry**, permissions are granted using [`grant_agent_mcp_egress.sh`](file:///Users/prothiag/code/agents/grant_agent_mcp_egress.sh):
-
-```bash
-# Grant roles/iap.egressor to the 3-Way Matching Agent on registered MCP tools
-export PROJECT_ID="bold-kit-384717"
-export PROJECT_NUMBER="851970768145"
-export REGION="us-central1"
-export AGENT_ID="12929245980641936153"
-
-./grant_agent_mcp_egress.sh --agent-id 12929245980641936153 --mcp
-```
-
-This enforces Identity-Aware Proxy (IAP) role bindings (`roles/iap.egressor`) so the agent can securely query ERP tools without hardcoded credentials.
-
----
-
-## 📚 Knowledge Base & Configuration Artifacts
-
-- [**`3-way-matching-policy.pdf`**](file:///Users/prothiag/code/agents/3-way-matching%20Agent/3-way-matching-policy.pdf): Official corporate AP control policy defining tolerance thresholds, approval limits, and exception protocols.
-- [**`Agent Instructions.pdf`**](file:///Users/prothiag/code/agents/3-way-matching%20Agent/Agent%20Instructions.pdf): System prompt definition, multi-agent node decomposition, and extraction guidelines.
+*`Agent Instructions.pdf`**](file:///Users/prothiag/code/agents/3-way-matching%20Agent/Agent%20Instructions.pdf): System prompt definition, multi-agent node decomposition, and extraction guidelines.
 - [**`SampleData/`**](file:///Users/prothiag/code/agents/3-way-matching%20Agent/SampleData): 13 vendor test suites for continuous evaluation and verification.
